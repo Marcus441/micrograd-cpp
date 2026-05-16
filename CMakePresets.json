@@ -1,0 +1,33 @@
+{
+  "version": 6,
+  "cmakeMinimumRequired": { "major": 3, "minor": 31, "patch": 0 },
+  "configurePresets": [
+    {
+      "name": "default",
+      "displayName": "Ninja Multi-Config",
+      "generator": "Ninja Multi-Config",
+      "binaryDir": "${sourceDir}/build",
+      "cacheVariables": {
+        "CMAKE_C_COMPILER": "clang",
+        "CMAKE_CXX_COMPILER": "clang++",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_DEFAULT_BUILD_TYPE": "Debug",
+        "CMAKE_COLOR_DIAGNOSTICS": "ON"
+      }
+    },
+    {
+      "name": "san",
+      "inherits": "default",
+      "displayName": "Ninja Multi-Config + Sanitizers",
+      "cacheVariables": {
+        "USE_SANITIZERS": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    { "name": "debug",          "configurePreset": "default", "configuration": "Debug" },
+    { "name": "release",        "configurePreset": "default", "configuration": "Release" },
+    { "name": "relwithdebinfo", "configurePreset": "default", "configuration": "RelWithDebInfo" },
+    { "name": "debug-san",      "configurePreset": "san",     "configuration": "Debug" }
+  ]
+}

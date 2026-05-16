@@ -3,7 +3,6 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
-
   outputs = {
     self,
     nixpkgs,
@@ -32,16 +31,13 @@
           lldb
           gdb
         ];
-
         shellHook = ''
           B='\033[1;34m'
           C='\033[0;36m'
           W='\033[1;37m'
           N='\033[0m'
-
           CLANG_V=$(clang --version | head -n 1 | cut -d' ' -f3)
           CMAKE_V=$(cmake --version | head -n 1 | cut -d' ' -f3)
-
           echo -e "''${B}╭──────────────────────────────────────────────────╮''${N}"
           echo -e "''${B}│''${N}  ''${W}󱄅  Nix C++ Development Environment  ''${W}󱄅 ''${N}          ''${B}│''${N}"
           echo -e "''${B}├──────────────────────────────────────────────────┤''${N}"

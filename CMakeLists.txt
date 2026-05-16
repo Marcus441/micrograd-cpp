@@ -1,11 +1,14 @@
 cmake_minimum_required(VERSION 3.31)
+set(CMAKE_EXPERIMENTAL_CXX_IMPORT_STD "d0edc3af-4c50-42ea-a356-e2862fe7a444")
+set(CMAKE_CXX_SCAN_FOR_MODULES ON)
+set(CMAKE_CXX_MODULE_STD ON)
+
 # [META] Project definition
 project(back-prop LANGUAGES CXX)
 # [CXX] Language standard configuration
 set(CMAKE_CXX_EXTENSIONS OFF)
 # [TOOL] Tooling and introspection
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-set(CMAKE_CXX_SCAN_FOR_MODULES OFF)
 # [SRCS] Explicit source file manifest
 set(SOURCES
     src/main.cpp
@@ -24,13 +27,13 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 )
 # [FLAG] Core compiler options and warnings
 target_compile_options(${PROJECT_NAME} PRIVATE
-    -fcolor-diagnostics
+    -stdlib=libc++
     -pedantic -Wall -Wextra -Wshadow -Wnon-virtual-dtor -Wunused
     $<$<CONFIG:Release>:-O3>
     $<$<CONFIG:RelWithDebInfo>:-O2 -g>
-    $<$<CONFIG:Debug>:-g>
-    $<$<CONFIG:Debug>:-Og>
+    $<$<CONFIG:Debug>:-g -Og>
 )
+target_link_options(${PROJECT_NAME} PRIVATE)
 # [QUAL] Sanitizers and quality gates
 option(USE_SANITIZERS "Enable ASan/UBSan" ON)
 if(USE_SANITIZERS AND CMAKE_BUILD_TYPE STREQUAL "Debug")
