@@ -9,7 +9,7 @@ void Value::Backward() {
   std::vector<Value> topo;
   std::set<const void*> visited;
 
-  std::function<void(Value)> build_topo = [&](Value v) {
+  std::function<void(Value)> build_topo = [&](Value v) -> void {
     if (!visited.contains(v.Id())) {
       visited.insert(v.Id());
       for (auto& child : v.Prev()) {

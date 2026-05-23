@@ -56,7 +56,9 @@ class Value {
   void Backward();
 
   // Setters
-  void Label(std::string label) { m_state_->label_ = std::move(label); }
+  void Label(std::string label) { m_state_->label_ = label; }
+  void SetData(double d) { m_state_->data_ = d; };
+  void ZeroGrad() { m_state_->grad_ = 0; };
 
   // Math
   auto Tanh() -> Value;
