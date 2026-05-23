@@ -9,12 +9,14 @@
 auto main() -> int {
   MLP n_mlp =
       MLP({{.n_in_ = 3, .n_out_ = 4}, {.n_in_ = 4, .n_out_ = 4}, {.n_in_ = 4, .n_out_ = 1}});
+
+  // training data
   std::vector<double> x0{2, 3.0, -1.0};
   std::vector<double> x1{3.0, -1.0, 0.5};
   std::vector<double> x2{0.5, 1.0, 1.0};
   std::vector<double> x3{1.0, 1.0, -1.0};
 
-  std::vector<double> y{1.0, -1.0, -1.0, 1.0};
+  std::vector<double> y{1.0, -1.0, -1.0, 1.0};  // ground truth (output that i want)
 
   std::vector<Value> output_pred;
   output_pred.emplace_back(n_mlp(x0));
@@ -33,5 +35,7 @@ auto main() -> int {
   util::graphing::ExportToDot(loss, "file.dot");
   std::println("loss after backward {:.2}", loss.Data());
 
+  size_t num_params = n_mlp.Parameters().lock()->size();
+  std::println("Number of parameters: {}", num_params);
   return 0;
 }
