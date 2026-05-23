@@ -9,7 +9,7 @@ class Neuron {
   Neuron(int n_inputs);
   auto operator()(const std::vector<Value>& x) const -> Value;
 
-  auto Parameters() -> std::shared_ptr<std::vector<Value>> { return parameters_; }
+  [[nodiscard]] auto Parameters() const -> std::weak_ptr<std::vector<Value>> { return parameters_; }
 
  private:
   static std::mt19937 rng;
